@@ -33,6 +33,31 @@ font-size:18px;
 margin:20px;
 }
 
+  .sectionTitle{
+text-align:center;
+margin-top:40px;
+}
+
+.topMovies{
+width:400px;
+margin:20px auto;
+padding:20px;
+background:white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.15);
+list-style:none;
+font-size:18px;
+}
+
+.topMovies li{
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+
+.topMovies li:last-child{
+border-bottom:none;
+}
+
 table{
 width:90%;
 margin:auto;
@@ -90,12 +115,16 @@ display:block;
 
 <div id="progress"></div>
 
-  <h2 style="text-align:center">🏆 Top Rated Movies</h2>
-
-<ul id="topMovies" style="width:60%; margin:auto; font-size:18px;"></ul>
 
 
 <div id="map"></div>
+
+<div id="map"></div>
+
+<h2 class="sectionTitle">🏆 Top Rated Movies</h2>
+
+<ul id="topMovies" class="topMovies"></ul>
+
 
 <table>
 
@@ -236,7 +265,8 @@ document.getElementById("topMovies").appendChild(li)
 
 })
 
-new jsVectorMap({
+let map=new jsVectorMap({
+
 selector:"#map",
 map:"world",
 
@@ -261,6 +291,23 @@ tooltip.text(
 tooltip.text()+" 🎬 "+watchedCountries[code]
 )
 }
+
+},
+
+onRegionClick:function(event,code){
+
+let rows=document.querySelectorAll("#movieBody tr")
+
+rows.forEach(row=>{
+
+if(row.dataset.country===code){
+row.style.display=""
+}
+else{
+row.style.display="none"
+}
+
+})
 
 }
 
