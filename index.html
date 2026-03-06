@@ -5,71 +5,79 @@
 <title>Our Movie Around the World Challenge</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    padding: 40px;
+
+body{
+font-family: Arial;
+background:#f4f6f8;
+margin:40px;
 }
 
-h1 {
-    text-align: center;
+h1{
+text-align:center;
 }
 
-table {
-    width: 80%;
-    margin: auto;
-    border-collapse: collapse;
-    background: white;
+#progress{
+text-align:center;
+font-size:18px;
+margin-bottom:20px;
 }
 
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+#search{
+display:block;
+margin:20px auto;
+padding:10px;
+width:300px;
+font-size:16px;
 }
 
-th {
-    background: #333;
-    color: white;
+table{
+width:90%;
+margin:auto;
+border-collapse:collapse;
+background:white;
 }
 
-a {
-    color: #2c6bed;
-    text-decoration: none;
+th, td{
+padding:12px;
+border-bottom:1px solid #ddd;
+text-align:left;
 }
 
-a:hover {
-    text-decoration: underline;
+th{
+background:#333;
+color:white;
+cursor:pointer;
 }
 
-.tooltip {
-    position: relative;
-    cursor: pointer;
+.poster{
+width:60px;
+border-radius:4px;
 }
 
-.tooltip .review {
-    visibility: hidden;
-    width: 250px;
-    background-color: #333;
-    color: #fff;
-    text-align: left;
-    padding: 10px;
-    border-radius: 6px;
-
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -125px;
-
-    opacity: 0;
-    transition: opacity 0.3s;
+.flag{
+width:28px;
 }
 
-.tooltip:hover .review {
-    visibility: visible;
-    opacity: 1;
+.review{
+display:none;
+position:absolute;
+background:#333;
+color:white;
+padding:10px;
+border-radius:6px;
+width:250px;
+z-index:10;
 }
+
+.movie:hover .review{
+display:block;
+}
+
+.stars{
+color:gold;
+font-size:16px;
+}
+
 </style>
 
 </head>
@@ -78,69 +86,161 @@ a:hover {
 
 <h1>🌍 Our Movie Around the World Challenge</h1>
 
-<table>
+<div id="progress"></div>
+
+<input id="search" placeholder="Search country or movie...">
+
+<table id="movieTable">
+
+<thead>
 <tr>
-<th>Country</th>
-<th>Movie</th>
+<th onclick="sortTable(0)">Country</th>
+<th>Flag</th>
+<th>Poster</th>
+<th onclick="sortTable(3)">Movie</th>
+<th>Rating</th>
 </tr>
+</thead>
+
+<tbody id="movieBody">
 
 <tr>
 <td>South Korea</td>
+
 <td>
-<div class="tooltip">
+<img class="flag" src="https://flagcdn.com/w40/kr.png">
+</td>
+
+<td>
+<img class="poster" src="https://m.media-amazon.com/images/I/91hSMHdJt8L.jpg">
+</td>
+
+<td class="movie">
 <a href="https://en.wikipedia.org/wiki/Parasite_(2019_film)" target="_blank">
 Parasite
 </a>
+
 <div class="review">
-Dark, clever, and full of twists. We loved how unpredictable it was!
+Wildly clever and unpredictable. We loved the twists.
 </div>
-</div>
+
 </td>
+
+<td class="stars">★★★★★</td>
+
 </tr>
 
 <tr>
 <td>France</td>
+
 <td>
-<div class="tooltip">
+<img class="flag" src="https://flagcdn.com/w40/fr.png">
+</td>
+
+<td>
+<img class="poster" src="https://m.media-amazon.com/images/I/71B6W+g0YFL.jpg">
+</td>
+
+<td class="movie">
 <a href="https://en.wikipedia.org/wiki/Am%C3%A9lie" target="_blank">
 Amélie
 </a>
+
 <div class="review">
-Whimsical and charming. A really beautiful and cozy film.
+Whimsical, charming, and cozy.
 </div>
-</div>
+
 </td>
+
+<td class="stars">★★★★☆</td>
+
 </tr>
 
 <tr>
 <td>Japan</td>
+
 <td>
-<div class="tooltip">
+<img class="flag" src="https://flagcdn.com/w40/jp.png">
+</td>
+
+<td>
+<img class="poster" src="https://m.media-amazon.com/images/I/81g4C1j2e-L.jpg">
+</td>
+
+<td class="movie">
+
 <a href="https://en.wikipedia.org/wiki/Spirited_Away" target="_blank">
 Spirited Away
 </a>
+
 <div class="review">
-Magical and visually stunning. One of our favorites so far.
+Beautiful animation and magical world.
 </div>
-</div>
+
 </td>
+
+<td class="stars">★★★★★</td>
+
 </tr>
 
-<tr>
-<td>Brazil</td>
-<td>
-<div class="tooltip">
-<a href="https://en.wikipedia.org/wiki/City_of_God_(2002_film)" target="_blank">
-City of God
-</a>
-<div class="review">
-Intense and powerful storytelling. Not an easy watch but incredible.
-</div>
-</div>
-</td>
-</tr>
-
+</tbody>
 </table>
+
+<script>
+
+function updateProgress(){
+
+let rows=document.querySelectorAll("#movieBody tr").length
+
+let totalCountries=195
+
+document.getElementById("progress").innerText=
+"🎬 Movies watched: "+rows+" / "+totalCountries
+
+}
+
+updateProgress()
+
+
+document.getElementById("search").addEventListener("keyup",function(){
+
+let filter=this.value.toLowerCase()
+
+let rows=document.querySelectorAll("#movieBody tr")
+
+rows.forEach(row=>{
+
+let text=row.innerText.toLowerCase()
+
+row.style.display=text.includes(filter)?"":"none"
+
+})
+
+})
+
+
+function sortTable(n){
+
+let table=document.getElementById("movieTable")
+
+let rows=[...table.rows].slice(1)
+
+let asc=table.classList.toggle("asc")
+
+rows.sort((a,b)=>{
+
+let A=a.cells[n].innerText
+let B=b.cells[n].innerText
+
+return asc?A.localeCompare(B):B.localeCompare(A)
+
+})
+
+rows.forEach(tr=>table.appendChild(tr))
+
+}
+
+</script>
 
 </body>
 </html>
