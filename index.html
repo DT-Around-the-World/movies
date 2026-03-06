@@ -4,10 +4,14 @@
 <meta charset="UTF-8">
 <title>Our Movie Around the World Challenge</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.css">
+
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
 background:#f4f6f8;
 margin:40px;
 }
@@ -16,18 +20,17 @@ h1{
 text-align:center;
 }
 
+#map{
+width:90%;
+height:450px;
+margin:auto;
+margin-bottom:40px;
+}
+
 #progress{
 text-align:center;
 font-size:18px;
-margin-bottom:20px;
-}
-
-#search{
-display:block;
-margin:20px auto;
-padding:10px;
-width:300px;
-font-size:16px;
+margin:20px;
 }
 
 table{
@@ -38,24 +41,29 @@ background:white;
 }
 
 th, td{
-padding:12px;
+padding:10px;
 border-bottom:1px solid #ddd;
-text-align:left;
 }
 
 th{
 background:#333;
 color:white;
-cursor:pointer;
 }
 
 .poster{
 width:60px;
-border-radius:4px;
 }
 
 .flag{
 width:28px;
+}
+
+.stars{
+color:gold;
+}
+
+.movie{
+position:relative;
 }
 
 .review{
@@ -66,16 +74,10 @@ color:white;
 padding:10px;
 border-radius:6px;
 width:250px;
-z-index:10;
 }
 
 .movie:hover .review{
 display:block;
-}
-
-.stars{
-color:gold;
-font-size:16px;
 }
 
 </style>
@@ -88,23 +90,23 @@ font-size:16px;
 
 <div id="progress"></div>
 
-<input id="search" placeholder="Search country or movie...">
+<div id="map"></div>
 
-<table id="movieTable">
+<table>
 
 <thead>
 <tr>
-<th onclick="sortTable(0)">Country</th>
+<th>Country</th>
 <th>Flag</th>
 <th>Poster</th>
-<th onclick="sortTable(3)">Movie</th>
+<th>Movie</th>
 <th>Rating</th>
 </tr>
 </thead>
 
 <tbody id="movieBody">
 
-<tr>
+<tr data-country="KR">
 <td>South Korea</td>
 
 <td>
@@ -116,12 +118,13 @@ font-size:16px;
 </td>
 
 <td class="movie">
+
 <a href="https://en.wikipedia.org/wiki/Parasite_(2019_film)" target="_blank">
 Parasite
 </a>
 
 <div class="review">
-Wildly clever and unpredictable. We loved the twists.
+Brilliant social satire with crazy twists.
 </div>
 
 </td>
@@ -130,7 +133,7 @@ Wildly clever and unpredictable. We loved the twists.
 
 </tr>
 
-<tr>
+<tr data-country="FR">
 <td>France</td>
 
 <td>
@@ -142,12 +145,13 @@ Wildly clever and unpredictable. We loved the twists.
 </td>
 
 <td class="movie">
+
 <a href="https://en.wikipedia.org/wiki/Am%C3%A9lie" target="_blank">
 Amélie
 </a>
 
 <div class="review">
-Whimsical, charming, and cozy.
+Beautiful quirky love letter to Paris.
 </div>
 
 </td>
@@ -156,7 +160,7 @@ Whimsical, charming, and cozy.
 
 </tr>
 
-<tr>
+<tr data-country="JP">
 <td>Japan</td>
 
 <td>
@@ -174,7 +178,7 @@ Spirited Away
 </a>
 
 <div class="review">
-Beautiful animation and magical world.
+Magical and visually stunning.
 </div>
 
 </td>
@@ -184,61 +188,64 @@ Beautiful animation and magical world.
 </tr>
 
 </tbody>
+
 </table>
+
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/js/jsvectormap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
 
 <script>
 
-function updateProgress(){
-
-let rows=document.querySelectorAll("#movieBody tr").length
-
-let totalCountries=195
-
-document.getElementById("progress").innerText=
-"🎬 Movies watched: "+rows+" / "+totalCountries
-
-}
-
-updateProgress()
-
-
-document.getElementById("search").addEventListener("keyup",function(){
-
-let filter=this.value.toLowerCase()
+let watchedCountries={}
 
 let rows=document.querySelectorAll("#movieBody tr")
 
 rows.forEach(row=>{
 
-let text=row.innerText.toLowerCase()
+let code=row.dataset.country
 
-row.style.display=text.includes(filter)?"":"none"
+let movie=row.cells[3].innerText
 
-})
-
-})
-
-
-function sortTable(n){
-
-let table=document.getElementById("movieTable")
-
-let rows=[...table.rows].slice(1)
-
-let asc=table.classList.toggle("asc")
-
-rows.sort((a,b)=>{
-
-let A=a.cells[n].innerText
-let B=b.cells[n].innerText
-
-return asc?A.localeCompare(B):B.localeCompare(A)
+watchedCountries[code]=movie
 
 })
 
-rows.forEach(tr=>table.appendChild(tr))
+let map=new jsVectorMap({
+
+selector:"#map",
+
+map:"world",
+
+regionStyle:{
+initial:{fill:"#d3d3d3"}
+},
+
+series:{
+regions:[{
+values:watchedCountries,
+attribute:"fill",
+scale:{
+"default":"#4CAF50"
+}
+}]
+},
+
+onRegionTooltipShow:function(e,tooltip,code){
+
+if(watchedCountries[code]){
+
+tooltip.text(
+tooltip.text()+" 🎬 "+watchedCountries[code]
+)
 
 }
+
+}
+
+})
+
+document.getElementById("progress").innerText=
+"🎬 Movies watched: "+rows.length+" / 195"
 
 </script>
 
