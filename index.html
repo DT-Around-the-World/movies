@@ -90,6 +90,11 @@ display:block;
 
 <div id="progress"></div>
 
+  <h2 style="text-align:center">🏆 Top Rated Movies</h2>
+
+<ul id="topMovies" style="width:60%; margin:auto; font-size:18px;"></ul>
+
+
 <div id="map"></div>
 
 <table>
@@ -197,23 +202,42 @@ Magical and visually stunning.
 <script>
 
 let watchedCountries={}
+let ratingCounts={1:0,2:0,3:0,4:0,5:0}
 
 let rows=document.querySelectorAll("#movieBody tr")
+
+let topMovies=[]
 
 rows.forEach(row=>{
 
 let code=row.dataset.country
-
 let movie=row.cells[3].innerText
+let stars=row.cells[4].innerText
+let rating=(stars.match(/★/g)||[]).length
 
 watchedCountries[code]=movie
 
+ratingCounts[rating]++
+
+topMovies.push({movie,rating})
+
 })
 
-let map=new jsVectorMap({
+topMovies
+.sort((a,b)=>b.rating-a.rating)
+.slice(0,5)
+.forEach(m=>{
 
+let li=document.createElement("li")
+
+li.innerText=`${m.movie} (${m.rating}⭐)`
+
+document.getElementById("topMovies").appendChild(li)
+
+})
+
+new jsVectorMap({
 selector:"#map",
-
 map:"world",
 
 regionStyle:{
@@ -233,11 +257,9 @@ scale:{
 onRegionTooltipShow:function(e,tooltip,code){
 
 if(watchedCountries[code]){
-
 tooltip.text(
 tooltip.text()+" 🎬 "+watchedCountries[code]
 )
-
 }
 
 }
@@ -246,6 +268,24 @@ tooltip.text()+" 🎬 "+watchedCountries[code]
 
 document.getElementById("progress").innerText=
 "🎬 Movies watched: "+rows.length+" / 195"
+
+new Chart(document.getElementById("ratingChart"),{
+type:"bar",
+data:{
+labels:["1⭐","2⭐","3⭐","4⭐","5⭐"],
+datasets:[{
+label:"Number of Movies",
+data:[
+ratingCounts[1],
+ratingCounts[2],
+ratingCounts[3],
+ratingCounts[4],
+ratingCounts[5]
+]
+}]
+}
+})
+
 
 </script>
 
