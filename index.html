@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Our Movie Around the World Challenge</title>
+<title>Movies Around the World</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.css">
 
@@ -12,9 +11,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;}
 
 body{
 font-family:'Inter',sans-serif;
@@ -26,14 +23,39 @@ color:#333;
 
 h1{
 text-align:center;
-font-weight:700;
-margin-bottom:10px;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+padding:20px;
+width:100%;
+}
+
+.topLayout{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:25px;
+max-width:1400px;
+margin:auto;
+}
+
+.sidePanel{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+#map{
+width:100%;
+height:420px;
 }
 
 #progress{
 text-align:center;
 font-size:16px;
-margin-bottom:20px;
 }
 
 .progressBar{
@@ -51,15 +73,21 @@ background:linear-gradient(90deg,#22c55e,#4ade80);
 width:0%;
 }
 
-.card{
-background:white;
-border-radius:12px;
-box-shadow:0 8px 20px rgba(0,0,0,0.08);
-padding:20px;
-width:100%;
+.sectionTitle{
+text-align:center;
 }
 
-  .controls{
+.topMovies{
+list-style:none;
+padding:0;
+}
+
+.topMovies li{
+padding:8px 0;
+border-bottom:1px solid #eee;
+}
+
+.controls{
 display:flex;
 gap:15px;
 margin-bottom:15px;
@@ -68,10 +96,9 @@ flex-wrap:wrap;
 
 .controls input,
 .controls select{
-padding:8px 10px;
+padding:8px;
 border-radius:6px;
 border:1px solid #ddd;
-font-size:14px;
 }
 
 .controls button{
@@ -81,74 +108,11 @@ border-radius:6px;
 background:#2563eb;
 color:white;
 cursor:pointer;
-font-weight:600;
-}
-
-.controls button:hover{
-background:#1d4ed8;
-}
-
-
-#map{
-width:100%;
-height:420px;
-}
-
-
-.topLayout{
-display:grid;
-grid-template-columns: 2fr 1fr;
-gap:25px;
-width:100%;
-max-width:1400px;
-margin:0 auto 25px auto;
-align-items:stretch;
-}
-
-
-  .sidePanel{
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-.mapCard{
-padding:15px;
-}
-
-.sectionTitle{
-text-align:center;
-font-weight:600;
-margin-bottom:10px;
-}
-
-.topMovies{
-max-width:420px;
-margin:20px auto;
-padding:15px 20px;
-background:white;
-border-radius:12px;
-box-shadow:0 6px 16px rgba(0,0,0,0.08);
-list-style:none;
-font-size:17px;
-}
-
-.topMovies li{
-padding:10px 0;
-border-bottom:1px solid #eee;
-display:flex;
-justify-content:space-between;
-}
-
-.topMovies li:last-child{
-border-bottom:none;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:10px;
-font-size:15px;
 }
 
 thead{
@@ -156,91 +120,38 @@ background:#111827;
 color:white;
 }
 
-th{
-padding:12px;
-text-align:left;
-font-weight:600;
-}
-
-td{
-padding:12px;
+th,td{
+padding:10px;
 border-bottom:1px solid #eee;
-vertical-align:middle;
 }
 
 tbody tr:hover{
 background:#f3f4f6;
-transition:0.2s;
 }
 
 .poster{
 width:55px;
 border-radius:6px;
-box-shadow:0 3px 6px rgba(0,0,0,0.2);
 }
 
 .flag{
 width:28px;
-border-radius:3px;
 }
 
 .stars{
 color:#fbbf24;
-font-size:16px;
 }
-
-.movie{
-position:relative;
-font-weight:600;
-}
-
-.movie a{
-text-decoration:none;
-color:#2563eb;
-}
-
-.movie a:hover{
-text-decoration:underline;
-}
-
-.review{
-position:absolute;
-top:28px;
-left:0;
-background:#111827;
-color:white;
-padding:10px;
-border-radius:6px;
-width:240px;
-font-size:13px;
-box-shadow:0 8px 16px rgba(0,0,0,0.2);
-z-index:10;
-}
-
-.movie:hover .review{
-animation:fadeIn 0.2s ease;
-}
-
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(5px);}
-to{opacity:1;transform:translateY(0);}
-}
-
 
 </style>
-
 </head>
 
 <body>
 
 <h1>Movies Around the World</h1>
 
-
-
-
 <div class="topLayout">
 
-<div class="card mapCard">
+<div class="card">
 <div id="map"></div>
 </div>
 
@@ -248,7 +159,6 @@ to{opacity:1;transform:translateY(0);}
 
 <div class="card">
 <div id="progress"></div>
-
 <div class="progressBar">
 <div class="progressFill" id="progressFill"></div>
 </div>
@@ -266,25 +176,17 @@ to{opacity:1;transform:translateY(0);}
 
 <div class="card">
 
-
-  <div class="card">
-
 <div class="controls">
-
-<input type="text" id="searchInput" placeholder="🔎 Search movie or country...">
-
+<input type="text" id="searchInput" placeholder="🔎 Search movie or country">
 <select id="sortSelect">
 <option value="default">Sort</option>
-<option value="country">Country (A–Z)</option>
-<option value="rating">Rating (High → Low)</option>
+<option value="country">Country A-Z</option>
+<option value="rating">Rating High-Low</option>
 </select>
-
 <button id="resetBtn">Reset</button>
-
 </div>
 
 <table>
-
 
 <thead>
 <tr>
@@ -300,6 +202,7 @@ to{opacity:1;transform:translateY(0);}
 <tbody id="movieBody"></tbody>
 
 </table>
+
 </div>
 
 
@@ -308,7 +211,7 @@ to{opacity:1;transform:translateY(0);}
 
 <script>
 
-  const movies = [
+const movies = [
 
 {
 country:"Afghanistan",
@@ -318,10 +221,9 @@ link:"https://en.wikipedia.org/wiki/Opium_War_(2008_film)",
 poster:"https://upload.wikimedia.org/wikipedia/en/c/c6/Opium_war_poster.jpg",
 rating:3,
 review:"Low budget symbolic movie. Recommend."
-},
+}
 
 ]
-
 
 let watchedCountries={}
 let ratingCounts={1:0,2:0,3:0,4:0,5:0}
@@ -347,7 +249,7 @@ row.innerHTML=`
 <img class="poster" src="${m.poster}">
 </td>
 
-<td class="movie">
+<td>
 <a href="${m.link}" target="_blank">${m.movie}</a>
 </td>
 
@@ -364,7 +266,9 @@ ratingCounts[m.rating]++
 
 })
 
+let rows = tbody.querySelectorAll("tr")
 
+/* MAP */
 
 let map = new jsVectorMap({
 
@@ -373,7 +277,6 @@ map:"world",
 
 zoomButtons:false,
 zoomOnScroll:false,
-zoomOnScrollSpeed:0,
 
 regionStyle:{
 initial:{fill:"#d3d3d3"}
@@ -392,97 +295,80 @@ scale:{
 onRegionTooltipShow:function(e,tooltip,code){
 
 if(watchedCountries[code]){
-tooltip.text(
-tooltip.text()+" 🎬 "+watchedCountries[code]
-)
+tooltip.text(tooltip.text()+" 🎬 "+watchedCountries[code])
 }
 
 },
 
 onRegionClick:function(event,code){
 
-let rows=tbody.querySelectorAll("tr")
+rows.forEach(row=>{
+row.style.display = row.dataset.country===code ? "" : "none"
+})
 
+}
+
+})
+
+/* PROGRESS BAR */
+
+let total=195
+let watched=rows.length
+
+document.getElementById("progress").innerText=
+"🎬 Movies watched: "+watched+" / "+total
+
+document.getElementById("progressFill").style.width=
+(watched/total*100)+"%"
+
+/* TOP RATED */
+
+let topMovies=[...movies]
+.sort((a,b)=>b.rating-a.rating)
+.slice(0,5)
+
+topMovies.forEach(m=>{
+
+let li=document.createElement("li")
+li.innerText=`${m.movie} (${m.rating}⭐)`
+document.getElementById("topMovies").appendChild(li)
+
+})
+
+/* SEARCH */
+
+let searchInput=document.getElementById("searchInput")
+
+searchInput.addEventListener("keyup",function(){
+
+let value=this.value.toLowerCase()
 
 rows.forEach(row=>{
 
-if(row.dataset.country===code){
-row.style.display=""
-}
-else{
-row.style.display="none"
-}
+let country=row.cells[0].innerText.toLowerCase()
+let movie=row.cells[3].innerText.toLowerCase()
 
-})
-
-}
-
-})
-
-
-let total = 195
-let watched = rows.length
-
-document.getElementById("progress").innerText =
-"🎬 Movies watched: "+watched+" / "+total
-
-let percent = (watched/total)*100
-
-document.getElementById("progressFill").style.width =
-percent+"%"
-
-new Chart(document.getElementById("ratingChart"),{
-type:"bar",
-data:{
-labels:["1⭐","2⭐","3⭐","4⭐","5⭐"],
-datasets:[{
-label:"Number of Movies",
-data:[
-ratingCounts[1],
-ratingCounts[2],
-ratingCounts[3],
-ratingCounts[4],
-ratingCounts[5]
-]
-}]
-}
-})
-
-  let searchInput = document.getElementById("searchInput")
-
-searchInput.addEventListener("keyup", function(){
-
-let value = searchInput.value.toLowerCase()
-
-rows.forEach(row => {
-
-let country = row.cells[0].innerText.toLowerCase()
-let movie = row.cells[3].innerText.toLowerCase()
-
-if(country.includes(value) || movie.includes(value)){
-row.style.display=""
-}else{
-row.style.display="none"
-}
+row.style.display=
+(country.includes(value)||movie.includes(value)) ? "" : "none"
 
 })
 
 })
-document.getElementById("sortSelect").addEventListener("change", function(){
 
-let value = this.value
-let tbody = document.getElementById("movieBody")
-let rowsArray = Array.from(rows)
+/* SORT */
 
-if(value === "country"){
+document.getElementById("sortSelect").addEventListener("change",function(){
+
+let rowsArray=[...rows]
+
+if(this.value==="country"){
 
 rowsArray.sort((a,b)=>
-a.cells[0].innerText.localeCompare(b.cells[0].innerText)
-)
+a.cells[0].innerText.localeCompare(b.cells[0].innerText))
 
 }
 
-if(value === "rating"){
+if(this.value==="rating"){
 
 rowsArray.sort((a,b)=>{
 
@@ -498,7 +384,10 @@ return r2-r1
 rowsArray.forEach(row=>tbody.appendChild(row))
 
 })
-document.getElementById("resetBtn").addEventListener("click", function(){
+
+/* RESET */
+
+document.getElementById("resetBtn").onclick=function(){
 
 searchInput.value=""
 
@@ -506,9 +395,7 @@ rows.forEach(row=>{
 row.style.display=""
 })
 
-})
-
-
+}
 
 </script>
 
