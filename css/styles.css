@@ -118,6 +118,7 @@ cursor:pointer;
 table{
 width:100%;
 border-collapse:collapse;
+font-size:15px;
 }
 
 thead{
@@ -125,14 +126,18 @@ background:#111827;
 color:white;
 }
 
-th,td{
-padding:10px;
-border-bottom:1px solid #eee;
+th{
+text-align:left;
+}
+
+tbody tr{
+transition:background 0.2s ease;
 }
 
 tbody tr:hover{
-background:#f3f4f6;
+background:#f8fafc;
 }
+
 
 .poster{
 width:55px;
