@@ -57,7 +57,6 @@
 <thead>
 <tr>
 <th>Country</th>
-<th>Flag</th>
 <th>Poster</th>
 <th>Movie</th>
 <th>Rating</th>
@@ -66,6 +65,7 @@
 <th>Watched</th>
 </tr>
 </thead>
+
 
 
 <tbody id="movieBody"></tbody>
@@ -104,12 +104,11 @@ let streamLink = m.stream
 let row=document.createElement("tr")
 row.dataset.country=m.code
 
-row.innerHTML=`
+row.innerHTML = `
 
-<td>${m.country}</td>
-
-<td>
+<td class="countryCell">
 <img class="flag" src="https://flagcdn.com/w40/${m.code.toLowerCase()}.png">
+<span>${m.country}</span>
 </td>
 
 <td>
@@ -126,9 +125,10 @@ row.innerHTML=`
 
 <td>${streamLink}</td>
 
-<td style="font-size:20px">${watchIcon}</td>
+<td class="watched">${watchIcon}</td>
 
 `
+
 
 tbody.appendChild(row)
 
