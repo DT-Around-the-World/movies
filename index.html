@@ -455,6 +455,67 @@ ratingCounts[5]
 }
 })
 
+  let searchInput = document.getElementById("searchInput")
+
+searchInput.addEventListener("keyup", function(){
+
+let value = searchInput.value.toLowerCase()
+
+rows.forEach(row => {
+
+let country = row.cells[0].innerText.toLowerCase()
+let movie = row.cells[3].innerText.toLowerCase()
+
+if(country.includes(value) || movie.includes(value)){
+row.style.display=""
+}else{
+row.style.display="none"
+}
+
+})
+
+})
+document.getElementById("sortSelect").addEventListener("change", function(){
+
+let value = this.value
+let tbody = document.getElementById("movieBody")
+let rowsArray = Array.from(rows)
+
+if(value === "country"){
+
+rowsArray.sort((a,b)=>
+a.cells[0].innerText.localeCompare(b.cells[0].innerText)
+)
+
+}
+
+if(value === "rating"){
+
+rowsArray.sort((a,b)=>{
+
+let r1=(a.cells[4].innerText.match(/★/g)||[]).length
+let r2=(b.cells[4].innerText.match(/★/g)||[]).length
+
+return r2-r1
+
+})
+
+}
+
+rowsArray.forEach(row=>tbody.appendChild(row))
+
+})
+document.getElementById("resetBtn").addEventListener("click", function(){
+
+searchInput.value=""
+
+rows.forEach(row=>{
+row.style.display=""
+})
+
+})
+
+
 
 </script>
 
