@@ -248,7 +248,6 @@ font-size:14px;
   <div style="overflow-x:auto;">
 <table>
 
-
 <thead>
 <tr>
 <th>Country</th>
@@ -257,8 +256,11 @@ font-size:14px;
 <th>Movie</th>
 <th>Rating</th>
 <th>Review</th>
+<th>Stream</th>
+<th>Watched</th>
 </tr>
 </thead>
+
 
 <tbody id="movieBody"></tbody>
 
@@ -280,18 +282,34 @@ country:"Afghanistan",
 code:"AF",
 movie:"Opium War",
 link:"https://en.wikipedia.org/wiki/Opium_War_(2008_film)",
+  stream:"https://www.youtube.com/watch?v=6Nl1oQL6AnA",
 poster:"https://upload.wikimedia.org/wikipedia/en/c/c6/Opium_war_poster.jpg",
 rating:3,
-review:"Low budget symbolic movie. Recommend."
+review:"Low budget symbolic movie. Recommend.",
+watched:true
 }, {
 country:"Albania",
 code:"AL",
 movie:"Slogans",
 link:"https://en.wikipedia.org/wiki/Slogans_(film)",
+  stream:"https://www.youtube.com/watch?v=6Nl1oQL6AnA",
 poster:"https://upload.wikimedia.org/wikipedia/en/7/7e/Slogans_%28film%29.jpg",
-rating:1,
-review:""
-}
+rating:0,
+review:"",
+watched:false
+},
+  {
+country:"Algeria",
+code:"DZ",
+movie:"Rachida",
+link:"https://en.wikipedia.org/wiki/Rachida",
+  stream:"https://www.youtube.com/watch?v=N1sXEVAlXWo",
+poster:"https://upload.wikimedia.org/wikipedia/en/7/7e/Slogans_%28film%29.jpg",
+rating:0,
+review:"",
+watched:false
+},
+  
 
 ]
 
@@ -302,7 +320,17 @@ let tbody=document.getElementById("movieBody")
 
 movies.forEach(m=>{
 
-let stars="★".repeat(m.rating)+"☆".repeat(5-m.rating)
+let stars = m.watched
+? "★".repeat(m.rating) + "☆".repeat(5-m.rating)
+: "-"
+
+let watchIcon = m.watched
+? "✅"
+: "❌"
+
+let streamLink = m.stream
+? `<a href="${m.stream}" target="_blank">▶ Watch</a>`
+: "-"
 
 let row=document.createElement("tr")
 row.dataset.country=m.code
@@ -325,14 +353,20 @@ row.innerHTML=`
 
 <td class="stars">${stars}</td>
 
-<td>${m.review}</td>
+<td>${m.watched ? m.review : "-"}</td>
+
+<td>${streamLink}</td>
+
+<td style="font-size:20px">${watchIcon}</td>
 
 `
 
 tbody.appendChild(row)
 
+if(m.watched){
 watchedCountries[m.code]=m.movie
 ratingCounts[m.rating]++
+}
 
 })
 
@@ -383,7 +417,8 @@ row.style.display = row.dataset.country===code ? "" : "none"
 /* PROGRESS BAR */
 
 let total=195
-let watched=rows.length
+let watched = movies.filter(m=>m.watched).length
+
 
 document.getElementById("progress").innerText=
 "🎬 Movies watched: "+watched+" / "+total
