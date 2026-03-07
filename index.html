@@ -204,7 +204,6 @@ text-decoration:underline;
 }
 
 .review{
-display:none;
 position:absolute;
 top:28px;
 left:0;
@@ -219,7 +218,6 @@ z-index:10;
 }
 
 .movie:hover .review{
-display:block;
 animation:fadeIn 0.2s ease;
 }
 
@@ -295,39 +293,11 @@ to{opacity:1;transform:translateY(0);}
 <th>Poster</th>
 <th>Movie</th>
 <th>Rating</th>
+<th>Review</th>
 </tr>
 </thead>
 
-<tbody id="movieBody">
-
-<tr data-country="AF">
-<td>Afghanistan</td>
-
-<td>
-<img class="flag" src="https://flagcdn.com/w40/af.png">
-</td>
-
-<td>
-<img class="poster" src="https://upload.wikimedia.org/wikipedia/en/c/c6/Opium_war_poster.jpg">
-</td>
-
-<td class="movie">
-
-<a href="https://en.wikipedia.org/wiki/Opium_War_(2008_film)" target="_blank">
-Opium War
-</a>
-
-<div class="review">
-Low budget symbolic movie. Recomend. 
-</div>
-
-</td>
-
-<td class="stars">★★★☆☆</td>
-
-</tr>
-
-</tbody>
+<tbody id="movieBody"></tbody>
 
 </table>
 </div>
@@ -338,40 +308,62 @@ Low budget symbolic movie. Recomend.
 
 <script>
 
+  const movies = [
+
+{
+country:"Afghanistan",
+code:"AF",
+movie:"Opium War",
+link:"https://en.wikipedia.org/wiki/Opium_War_(2008_film)",
+poster:"https://upload.wikimedia.org/wikipedia/en/c/c6/Opium_war_poster.jpg",
+rating:3,
+review:"Low budget symbolic movie. Recommend."
+},
+
+]
+
+
 let watchedCountries={}
 let ratingCounts={1:0,2:0,3:0,4:0,5:0}
 
-let rows=document.querySelectorAll("#movieBody tr")
+let tbody=document.getElementById("movieBody")
 
-let topMovies=[]
+movies.forEach(m=>{
 
-rows.forEach(row=>{
+let stars="★".repeat(m.rating)+"☆".repeat(5-m.rating)
 
-let code=row.dataset.country
-let movie=row.cells[3].innerText
-let stars=row.cells[4].innerText
-let rating=(stars.match(/★/g)||[]).length
+let row=document.createElement("tr")
+row.dataset.country=m.code
 
-watchedCountries[code]=movie
+row.innerHTML=`
 
-ratingCounts[rating]++
+<td>${m.country}</td>
 
-topMovies.push({movie,rating})
+<td>
+<img class="flag" src="https://flagcdn.com/w40/${m.code.toLowerCase()}.png">
+</td>
+
+<td>
+<img class="poster" src="${m.poster}">
+</td>
+
+<td class="movie">
+<a href="${m.link}" target="_blank">${m.movie}</a>
+</td>
+
+<td class="stars">${stars}</td>
+
+<td>${m.review}</td>
+
+`
+
+tbody.appendChild(row)
+
+watchedCountries[m.code]=m.movie
+ratingCounts[m.rating]++
 
 })
 
-topMovies
-.sort((a,b)=>b.rating-a.rating)
-.slice(0,5)
-.forEach(m=>{
-
-let li=document.createElement("li")
-
-li.innerText=`${m.movie} (${m.rating}⭐)`
-
-document.getElementById("topMovies").appendChild(li)
-
-})
 
 
 let map = new jsVectorMap({
@@ -409,7 +401,8 @@ tooltip.text()+" 🎬 "+watchedCountries[code]
 
 onRegionClick:function(event,code){
 
-let rows=document.querySelectorAll("#movieBody tr")
+let rows=tbody.querySelectorAll("tr")
+
 
 rows.forEach(row=>{
 
