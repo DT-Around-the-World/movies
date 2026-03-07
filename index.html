@@ -342,8 +342,16 @@ row.style.display="none"
 
 })
 
-document.getElementById("progress").innerText=
-"🎬 Movies watched: "+rows.length+" / 195"
+let total = 195
+let watched = rows.length
+
+document.getElementById("progress").innerText =
+"🎬 Movies watched: "+watched+" / "+total
+
+let percent = (watched/total)*100
+
+document.getElementById("progressFill").style.width =
+percent+"%"
 
 new Chart(document.getElementById("ratingChart"),{
 type:"bar",
