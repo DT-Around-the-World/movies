@@ -325,7 +325,7 @@ document.getElementById("topMovies").appendChild(li)
 })
 
 
-let map=new jsVectorMap({
+let map = new jsVectorMap({
 
 selector:"#map",
 map:"world",
@@ -338,6 +338,15 @@ regionStyle:{
 initial:{fill:"#d3d3d3"}
 },
 
+series:{
+regions:[{
+values:watchedCountries,
+attribute:"fill",
+scale:{
+"default":"#4CAF50"
+}
+}]
+},
 
 onRegionTooltipShow:function(e,tooltip,code){
 
@@ -367,6 +376,7 @@ row.style.display="none"
 }
 
 })
+
 
 let total = 195
 let watched = rows.length
