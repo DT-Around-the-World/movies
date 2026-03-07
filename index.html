@@ -325,23 +325,19 @@ document.getElementById("topMovies").appendChild(li)
 })
 
 let map=new jsVectorMap({
+let map=new jsVectorMap({
 
 selector:"#map",
 map:"world",
+
+zoomButtons:false,
+zoomOnScroll:false,
+zoomOnScrollSpeed:0,
 
 regionStyle:{
 initial:{fill:"#d3d3d3"}
 },
 
-series:{
-regions:[{
-values:watchedCountries,
-attribute:"fill",
-scale:{
-"default":"#4CAF50"
-}
-}]
-},
 
 onRegionTooltipShow:function(e,tooltip,code){
 
