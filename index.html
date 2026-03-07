@@ -10,51 +10,84 @@
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+*{
+box-sizing:border-box;
+}
+
 body{
-font-family:Arial;
-background:#f4f6f8;
-max-width:1400px;
-margin:auto;
+font-family:'Inter',sans-serif;
+background:linear-gradient(180deg,#eef2f7,#f8fafc);
+margin:0;
+padding:30px;
+color:#333;
 }
 
 h1{
 text-align:center;
-}
-
-#map{
-width:95%;
-height:350px;
-margin:0 auto 20px auto;
-border-radius:10px;
-box-shadow:0 4px 12px rgba(0,0,0,0.15);
+font-weight:700;
+margin-bottom:10px;
 }
 
 #progress{
 text-align:center;
-font-size:18px;
-margin:20px;
+font-size:16px;
+margin-bottom:20px;
+}
+
+.progressBar{
+width:300px;
+height:12px;
+background:#e2e8f0;
+border-radius:20px;
+margin:10px auto;
+overflow:hidden;
+}
+
+.progressFill{
+height:100%;
+background:linear-gradient(90deg,#22c55e,#4ade80);
+width:0%;
+}
+
+.card{
+background:white;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.08);
+padding:20px;
+margin:25px auto;
+max-width:1100px;
+}
+
+#map{
+width:100%;
+height:380px;
+border-radius:10px;
 }
 
 .sectionTitle{
 text-align:center;
-margin:20px 0 10px 0;
+font-weight:600;
+margin-bottom:10px;
 }
 
-
 .topMovies{
-width:400px;
+max-width:420px;
 margin:20px auto;
-padding:20px;
+padding:15px 20px;
 background:white;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.15);
+border-radius:12px;
+box-shadow:0 6px 16px rgba(0,0,0,0.08);
 list-style:none;
-font-size:18px;
+font-size:17px;
 }
 
 .topMovies li{
-padding:8px 0;
+padding:10px 0;
 border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
 }
 
 .topMovies li:last-child{
@@ -62,51 +95,89 @@ border-bottom:none;
 }
 
 table{
-width:90%;
-margin:auto;
+width:100%;
 border-collapse:collapse;
-background:white;
+margin-top:10px;
+font-size:15px;
 }
 
-th, td{
-padding:10px;
-border-bottom:1px solid #ddd;
-}
-
-th{
-background:#333;
+thead{
+background:#111827;
 color:white;
 }
 
+th{
+padding:12px;
+text-align:left;
+font-weight:600;
+}
+
+td{
+padding:12px;
+border-bottom:1px solid #eee;
+vertical-align:middle;
+}
+
+tbody tr:hover{
+background:#f3f4f6;
+transition:0.2s;
+}
+
 .poster{
-width:60px;
+width:55px;
+border-radius:6px;
+box-shadow:0 3px 6px rgba(0,0,0,0.2);
 }
 
 .flag{
 width:28px;
+border-radius:3px;
 }
 
 .stars{
-color:gold;
+color:#fbbf24;
+font-size:16px;
 }
 
 .movie{
 position:relative;
+font-weight:600;
+}
+
+.movie a{
+text-decoration:none;
+color:#2563eb;
+}
+
+.movie a:hover{
+text-decoration:underline;
 }
 
 .review{
 display:none;
 position:absolute;
-background:#333;
+top:28px;
+left:0;
+background:#111827;
 color:white;
 padding:10px;
 border-radius:6px;
-width:250px;
+width:240px;
+font-size:13px;
+box-shadow:0 8px 16px rgba(0,0,0,0.2);
+z-index:10;
 }
 
 .movie:hover .review{
 display:block;
+animation:fadeIn 0.2s ease;
 }
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(5px);}
+to{opacity:1;transform:translateY(0);}
+}
+
 
 </style>
 
