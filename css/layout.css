@@ -1,3 +1,5 @@
+/* HEADER */
+
 .headerBar{
 display:flex;
 align-items:center;
@@ -15,8 +17,9 @@ margin-bottom:25px;
 margin:0;
 font-size:32px;
 font-weight:700;
-text-align:center;
 }
+
+/* MAIN LAYOUT */
 
 .topLayout{
 display:grid;
@@ -30,6 +33,8 @@ display:flex;
 flex-direction:column;
 gap:20px;
 }
+
+/* CARDS */
 
 .card{
 background:white;
