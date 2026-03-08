@@ -48,27 +48,27 @@ row.dataset.country=m.code
 
 row.innerHTML=`
 
-<td>
+<td data-label="Country">
 <div class="countryCell">
 <img class="flag" src="https://flagcdn.com/w40/${m.code.toLowerCase()}.png">
 <span>${m.country}</span>
 </div>
 </td>
 
-<td>
+<td data-label="Movie">
 <div class="movieCell">
 ${poster}
 <span>${movieTitle}</span>
 </div>
 </td>
 
-<td class="stars">${stars}</td>
+<td class="stars" data-label="Rating">${stars}</td>
 
-<td class="reviewCol">${m.watched ? m.review : "-"}</td>
+<td class="reviewCol" data-label="Review">${m.watched ? m.review : "-"}</td>
 
-<td>${streamLink}</td>
+<td data-label="Stream">${streamLink}</td>
 
-<td class="watched">${watchIcon}</td>
+<td class="watched" data-label="Watched">${watchIcon}</td>
 `
 
 tbody.appendChild(row)
