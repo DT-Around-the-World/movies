@@ -125,14 +125,18 @@ row.dataset.country=m.code
 
 row.innerHTML=`
 
-<td class="countryCell">
+<td>
+<div class="countryCell">
 <img class="flag" src="https://flagcdn.com/w40/${m.code.toLowerCase()}.png">
 <span>${m.country}</span>
+</div>
 </td>
 
-<td class="movieCell">
+<td>
+<div class="movieCell">
 ${poster}
 <span>${movieTitle}</span>
+</div>
 </td>
 
 <td class="stars">${stars}</td>
