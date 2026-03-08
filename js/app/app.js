@@ -26,7 +26,9 @@ watched: false
 
 /* ---------- DOM REFERENCES ---------- */
 
-let tbody = document.getElementById("movieBody")
+const tbody = document.getElementById("movieBody")
+const movieTable = document.querySelector(".movieTable")
+
 let watchedCountries = {}
 
 function getRows(){
@@ -55,7 +57,7 @@ let streamLink = m.stream
 : "-"
 
 let poster = m.poster
-? `<img class="poster" src="${m.poster}">`
+? `<img class="poster" src="${m.poster}" alt="${m.movie || 'Movie poster'}">`
 : "-"
 
 let movieTitle = m.movie
@@ -63,9 +65,11 @@ let movieTitle = m.movie
 : "—"
 
 let row = document.createElement("tr")
+
 row.dataset.country = m.code
-row.dataset.countryName = m.country.toLowerCase()
-row.dataset.movieName = m.movie.toLowerCase()
+row.dataset.countryName = (m.country || "").toLowerCase()
+row.dataset.movieName = (m.movie || "").toLowerCase()
+row.dataset.rating = m.rating
 
 row.innerHTML = `
 
@@ -103,6 +107,8 @@ watchedCountries[m.code] = m.movie
 
 /* ---------- MAP ---------- */
 
+let activeCountry = null
+
 let map = new jsVectorMap({
 
 selector: "#map",
@@ -128,18 +134,25 @@ scale:{
 onRegionTooltipShow:function(e, tooltip, code){
 
 if(watchedCountries[code]){
-tooltip.text(tooltip.text()+" 🎬 "+watchedCountries[code])
+tooltip.text(tooltip.text() + " 🎬 " + watchedCountries[code])
 }
 
 },
 
 onRegionClick:function(event, code){
 
+activeCountry = activeCountry === code ? null : code
+
 getRows().forEach(row => {
-row.style.display = row.dataset.country === code ? "" : "none"
+
+row.style.display =
+!activeCountry || row.dataset.country === activeCountry
+? ""
+: "none"
+
 })
 
-document.querySelector(".movieTable").scrollIntoView({
+movieTable.scrollIntoView({
 behavior:"smooth"
 })
 
@@ -191,7 +204,9 @@ let country = row.dataset.countryName
 let movie = row.dataset.movieName
 
 row.style.display =
-(country.includes(value) || movie.includes(value)) ? "" : "none"
+(country.includes(value) || movie.includes(value))
+? ""
+: "none"
 
 })
 
@@ -214,14 +229,9 @@ a.dataset.countryName.localeCompare(b.dataset.countryName)
 
 if(this.value === "rating"){
 
-rowsArray.sort((a,b) => {
-
-let r1 = (a.cells[2].innerText.match(/★/g) || []).length
-let r2 = (b.cells[2].innerText.match(/★/g) || []).length
-
-return r2 - r1
-
-})
+rowsArray.sort((a,b) =>
+b.dataset.rating - a.dataset.rating
+)
 
 }
 
@@ -235,6 +245,7 @@ rowsArray.forEach(row => tbody.appendChild(row))
 document.getElementById("resetBtn").onclick = function(){
 
 searchInput.value = ""
+activeCountry = null
 
 getRows().forEach(row => {
 row.style.display = ""
