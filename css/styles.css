@@ -9,7 +9,6 @@ color:#1f2933;
 max-width:1400px;
 margin:auto;
 padding:20px;
-box-sizing:border-box;
 }
 
 /* HEADER */
@@ -140,15 +139,14 @@ overflow-x:auto;
 .movieTable{
 width:100%;
 border-collapse:collapse;
-table-layout:auto;
+table-layout:fixed;
 }
 
 .movieTable th,
 .movieTable td{
 padding:10px;
+text-align:center;
 vertical-align:middle;
-text-align:left;
-word-break:break-word;
 }
 
 /* STICKY TABLE HEADER */
@@ -164,11 +162,12 @@ z-index:500;
 
 .movieTable tbody tr{
 border-bottom:1px solid #eee;
-transition:background .2s ease;
+transition:background .2s ease, transform .15s ease;
 }
 
 .movieTable tbody tr:hover{
 background:#f7f9fc;
+transform:scale(1.01);
 }
 
 /* COUNTRY CELL */
@@ -176,6 +175,7 @@ background:#f7f9fc;
 .countryCell{
 display:flex;
 align-items:center;
+justify-content:flex-start;
 gap:8px;
 }
 
@@ -189,6 +189,7 @@ border-radius:3px;
 .movieCell{
 display:flex;
 align-items:center;
+justify-content:flex-start;
 gap:10px;
 }
 
@@ -212,14 +213,12 @@ box-shadow:0 10px 25px rgba(0,0,0,0.25);
 .stars{
 font-size:16px;
 letter-spacing:1px;
-text-align:center;
 }
 
 /* WATCHED */
 
 .watched{
 font-size:18px;
-text-align:center;
 }
 
 /* STREAM BUTTONS */
@@ -242,9 +241,16 @@ color:white;
 transform:translateY(-1px);
 }
 
-/* REVIEW COLUMN */
+/* TABLE COLUMN SIZING */
+
+.countryCol{width:180px;}
+.movieCol{width:260px;}
+.ratingCol{width:120px;}
+.streamCol{width:120px;}
+.watchedCol{width:90px;}
 
 .reviewCol{
+width:auto;
 text-align:left;
 }
 
@@ -258,11 +264,6 @@ grid-template-columns:1fr;
 
 #map{
 height:300px;
-}
-
-.movieCell{
-flex-direction:column;
-align-items:flex-start;
 }
 
 }
