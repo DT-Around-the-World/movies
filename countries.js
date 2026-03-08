@@ -2,6 +2,7 @@ const countries = [
 {name:"Afghanistan",code:"AF"},
 {name:"Albania",code:"AL"},
 {name:"Algeria",code:"DZ"},
+  {name:"American Samoan",code:"AS"},
 {name:"Andorra",code:"AD"},
 {name:"Angola",code:"AO"},
 {name:"Antigua and Barbuda",code:"AG"},
