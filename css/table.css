@@ -16,6 +16,8 @@ text-align:center;
 vertical-align:middle;
 }
 
+/* HEADER */
+
 .movieTable thead tr{
 background:#f2f4f8;
 }
@@ -24,19 +26,22 @@ background:#f2f4f8;
 border-bottom:2px solid #e5e7eb;
 }
 
+/* ROWS */
+
 .movieTable tbody tr{
 border-bottom:1px solid #eee;
 transition:background .2s ease;
 }
 
 .movieTable tbody tr:hover{
-background:#fafafa;
+background:#f8fafc;
 }
+
+/* CELLS */
 
 .countryCell{
 display:flex;
 align-items:center;
-justify-content:flex-start;
 gap:8px;
 }
 
@@ -48,7 +53,6 @@ border-radius:3px;
 .movieCell{
 display:flex;
 align-items:center;
-justify-content:flex-start;
 gap:10px;
 }
 
@@ -61,6 +65,8 @@ letter-spacing:1px;
 font-size:18px;
 }
 
+/* COLUMN WIDTHS */
+
 .countryCol{width:200px;}
 .movieCol{width:260px;}
 .ratingCol{width:120px;}
@@ -68,6 +74,5 @@ font-size:18px;
 .watchedCol{width:90px;}
 
 .reviewCol{
-width:auto;
 text-align:left;
 }
