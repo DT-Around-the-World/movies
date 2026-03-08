@@ -17,6 +17,12 @@ padding:20px;
 display:flex;
 align-items:center;
 justify-content:center;
+position:sticky;
+top:0;
+z-index:1000;
+background:white;
+padding:16px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
 margin-bottom:25px;
 }
 
@@ -138,17 +144,25 @@ text-align:center;
 vertical-align:middle;
 }
 
-.movieTable thead{
+/* STICKY TABLE HEADER */
+
+.movieTable thead th{
+position:sticky;
+top:72px;
 background:#f2f4f8;
+z-index:500;
 }
+
+/* TABLE ROWS */
 
 .movieTable tbody tr{
 border-bottom:1px solid #eee;
-transition:background .2s;
+transition:background .2s ease, transform .15s ease;
 }
 
 .movieTable tbody tr:hover{
 background:#f7f9fc;
+transform:scale(1.01);
 }
 
 /* COUNTRY CELL */
@@ -174,9 +188,19 @@ justify-content:center;
 gap:10px;
 }
 
+/* POSTER */
+
 .poster{
 height:55px;
 border-radius:4px;
+cursor:pointer;
+transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.poster:hover{
+transform:scale(2.2);
+z-index:100;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
 
 /* STARS */
@@ -190,6 +214,26 @@ letter-spacing:1px;
 
 .watched{
 font-size:18px;
+}
+
+/* STREAM BUTTONS */
+
+.streamLink{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+background:#eef2ff;
+color:#374151;
+font-size:13px;
+text-decoration:none;
+font-weight:500;
+transition:all .2s ease;
+}
+
+.streamLink:hover{
+background:#4CAF50;
+color:white;
+transform:translateY(-1px);
 }
 
 /* TABLE COLUMN SIZING */
