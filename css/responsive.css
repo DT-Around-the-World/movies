@@ -1,0 +1,76 @@
+/* tablets */
+
+@media (max-width:1100px){
+
+.topLayout{
+grid-template-columns:1fr;
+}
+
+.sidePanel{
+flex-direction:row;
+flex-wrap:wrap;
+}
+
+.sidePanel .card{
+flex:1;
+min-width:250px;
+}
+
+#map{
+height:340px;
+}
+
+}
+
+/* phones */
+
+@media (max-width:700px){
+
+.headerBar h1{
+font-size:22px;
+}
+
+.controls{
+flex-direction:column;
+align-items:stretch;
+}
+
+.controls input,
+.controls select,
+.controls button{
+width:100%;
+}
+
+.movieTable{
+font-size:13px;
+}
+
+.poster{
+height:45px;
+}
+
+.flag{
+width:20px;
+}
+
+}
+
+/* very small phones */
+
+@media (max-width:500px){
+
+#map{
+height:260px;
+}
+
+.movieCell{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.countryCell{
+flex-direction:column;
+align-items:flex-start;
+}
+
+}
