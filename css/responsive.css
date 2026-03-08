@@ -22,6 +22,7 @@ height:340px;
 
 }
 
+
 /* phones */
 
 @media (max-width:700px){
@@ -29,6 +30,8 @@ height:340px;
 .headerBar h1{
 font-size:22px;
 }
+
+/* controls */
 
 .controls{
 flex-direction:column;
@@ -41,43 +44,21 @@ align-items:stretch;
 width:100%;
 }
 
+/* general sizing */
+
 .movieTable{
 font-size:13px;
 }
 
 .poster{
-height:45px;
+height:40px;
 }
 
 .flag{
 width:20px;
 }
 
-}
-
-/* very small phones */
-
-@media (max-width:500px){
-
-#map{
-height:260px;
-}
-
-.movieCell{
-flex-direction:column;
-align-items:flex-start;
-}
-
-.countryCell{
-flex-direction:column;
-align-items:flex-start;
-}
-
-}
-
 /* TABLE → MOBILE CARDS */
-
-@media (max-width:700px){
 
 .movieTable thead{
 display:none;
@@ -132,8 +113,25 @@ justify-content:flex-end;
 justify-content:flex-end;
 }
 
-.poster{
-height:40px;
+}
+
+
+/* very small phones */
+
+@media (max-width:500px){
+
+#map{
+height:260px;
+}
+
+.movieCell{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.countryCell{
+flex-direction:column;
+align-items:flex-start;
 }
 
 }
