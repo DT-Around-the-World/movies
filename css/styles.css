@@ -34,18 +34,17 @@ margin:auto auto 30px auto;
 }
 
 
-.countryCell{
+.countryCell,
+.movieCell{
 display:flex;
 align-items:center;
 gap:10px;
 white-space:nowrap;
 }
 
-.movieCell{
-display:flex;
-align-items:center;
-gap:10px;
-white-space:nowrap;
+.movieCell .poster{
+width:55px;
+border-radius:6px;
 }
 
 .countryCell span,
