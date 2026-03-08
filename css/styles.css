@@ -6,8 +6,7 @@ color:#1f2933;
 }
 
 .appContainer{
-width:100%;
-max-width:1600px;
+max-width:1400px;
 margin:auto;
 padding:20px;
 box-sizing:border-box;
@@ -147,12 +146,12 @@ table-layout:auto;
 .movieTable th,
 .movieTable td{
 padding:10px;
-text-align:center;
 vertical-align:middle;
+text-align:left;
 word-break:break-word;
 }
 
-/* STICKY HEADER */
+/* STICKY TABLE HEADER */
 
 .movieTable thead th{
 position:sticky;
@@ -161,7 +160,7 @@ background:#f2f4f8;
 z-index:500;
 }
 
-/* ROWS */
+/* TABLE ROWS */
 
 .movieTable tbody tr{
 border-bottom:1px solid #eee;
@@ -178,7 +177,6 @@ background:#f7f9fc;
 display:flex;
 align-items:center;
 gap:8px;
-justify-content:flex-start;
 }
 
 .flag{
@@ -192,7 +190,6 @@ border-radius:3px;
 display:flex;
 align-items:center;
 gap:10px;
-justify-content:flex-start;
 }
 
 /* POSTER */
@@ -215,15 +212,17 @@ box-shadow:0 10px 25px rgba(0,0,0,0.25);
 .stars{
 font-size:16px;
 letter-spacing:1px;
+text-align:center;
 }
 
 /* WATCHED */
 
 .watched{
 font-size:18px;
+text-align:center;
 }
 
-/* STREAM BUTTON */
+/* STREAM BUTTONS */
 
 .streamLink{
 display:inline-block;
@@ -243,13 +242,7 @@ color:white;
 transform:translateY(-1px);
 }
 
-/* COLUMN WIDTHS */
-
-.countryCol{width:180px;}
-.movieCol{width:260px;}
-.ratingCol{width:120px;}
-.streamCol{width:120px;}
-.watchedCol{width:90px;}
+/* REVIEW COLUMN */
 
 .reviewCol{
 text-align:left;
@@ -270,4 +263,6 @@ height:300px;
 .movieCell{
 flex-direction:column;
 align-items:flex-start;
+}
+
 }
