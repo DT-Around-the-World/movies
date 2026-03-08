@@ -132,9 +132,11 @@ opacity:.9;
 overflow-x:auto;
 }
 
-.movieTable{
-width:100%;
-border-collapse:collapse;
+.movieTable thead th{
+position:sticky;
+top:100px;
+background:#f2f4f8;
+z-index:600;
 }
 
 .movieTable th,
