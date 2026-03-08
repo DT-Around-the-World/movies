@@ -152,10 +152,10 @@ vertical-align:middle;
 /* FIXED STICKY HEADER */
 
 .movieTable thead th{
-position:sticky;
-top:80px;
 background:#f2f4f8;
-z-index:500;
+}
+.movieTable thead{
+border-bottom:2px solid #e5e7eb;
 }
 
 /* TABLE ROWS */
