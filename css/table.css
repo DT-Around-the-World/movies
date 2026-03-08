@@ -1,0 +1,73 @@
+.tableWrapper{
+width:100%;
+overflow-x:auto;
+}
+
+.movieTable{
+width:100%;
+border-collapse:collapse;
+table-layout:fixed;
+}
+
+.movieTable th,
+.movieTable td{
+padding:10px;
+text-align:center;
+vertical-align:middle;
+}
+
+.movieTable thead tr{
+background:#f2f4f8;
+}
+
+.movieTable thead{
+border-bottom:2px solid #e5e7eb;
+}
+
+.movieTable tbody tr{
+border-bottom:1px solid #eee;
+transition:background .2s ease;
+}
+
+.movieTable tbody tr:hover{
+background:#fafafa;
+}
+
+.countryCell{
+display:flex;
+align-items:center;
+justify-content:flex-start;
+gap:8px;
+}
+
+.flag{
+width:26px;
+border-radius:3px;
+}
+
+.movieCell{
+display:flex;
+align-items:center;
+justify-content:flex-start;
+gap:10px;
+}
+
+.stars{
+font-size:16px;
+letter-spacing:1px;
+}
+
+.watched{
+font-size:18px;
+}
+
+.countryCol{width:200px;}
+.movieCol{width:260px;}
+.ratingCol{width:120px;}
+.streamCol{width:120px;}
+.watchedCol{width:90px;}
+
+.reviewCol{
+width:auto;
+text-align:left;
+}
