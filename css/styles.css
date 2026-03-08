@@ -33,16 +33,25 @@ max-width:1400px;
 margin:auto auto 30px auto;
 }
 
+
 .countryCell{
 display:flex;
 align-items:center;
 gap:10px;
-background:#f1f5f9;
-font-weight:600;
-border-radius:6px;
-padding:6px 10px;
+white-space:nowrap;
 }
 
+.movieCell{
+display:flex;
+align-items:center;
+gap:10px;
+white-space:nowrap;
+}
+
+.countryCell span,
+.movieCell span{
+white-space:nowrap;
+}
 
 
 
