@@ -59,7 +59,6 @@
 <thead>
 <tr>
 <th>Country</th>
-<th>Poster</th>
 <th>Movie</th>
 <th>Rating</th>
 <th>Review</th>
@@ -131,9 +130,10 @@ row.innerHTML=`
 <span>${m.country}</span>
 </td>
 
-<td>${poster}</td>
-
-<td>${movieTitle}</td>
+<td class="movieCell">
+${poster}
+<span>${movieTitle}</span>
+</td>
 
 <td class="stars">${stars}</td>
 
