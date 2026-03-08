@@ -1,33 +1,52 @@
+/* ---------- PREPARE MOVIE DATA ---------- */
+
+const movieLookup = Object.fromEntries(
+movieData.map(m => [m.code, m])
+)
+
 const movies = countries.map(c => {
 
-let existing = movieData.find(m => m.code === c.code)
+let existing = movieLookup[c.code]
 
 return existing || {
-country:c.name,
-code:c.code,
-movie:"",
-link:"",
-stream:"",
-poster:"",
-rating:0,
-review:"",
-watched:false
+country: c.name,
+code: c.code,
+movie: "",
+link: "",
+stream: "",
+streamName: "",
+poster: "",
+rating: 0,
+review: "",
+watched: false
 }
 
 })
 
-let watchedCountries={}
-let tbody=document.getElementById("movieBody")
+
+/* ---------- DOM REFERENCES ---------- */
+
+let tbody = document.getElementById("movieBody")
+let watchedCountries = {}
 
 function getRows(){
 return [...tbody.querySelectorAll("tr")]
 }
 
-movies.forEach(m=>{
 
-let stars = m.watched
-? "★".repeat(m.rating) + "☆".repeat(5-m.rating)
-: "-"
+/* ---------- HELPER FUNCTIONS ---------- */
+
+function getStars(rating, watched){
+if(!watched) return "-"
+return "★".repeat(rating) + "☆".repeat(5-rating)
+}
+
+
+/* ---------- BUILD TABLE ---------- */
+
+movies.forEach(m => {
+
+let stars = getStars(m.rating, m.watched)
 
 let watchIcon = m.watched ? "✅" : "❌"
 
@@ -43,10 +62,12 @@ let movieTitle = m.movie
 ? `<a href="${m.link}" target="_blank" rel="noopener">${m.movie}</a>`
 : "—"
 
-let row=document.createElement("tr")
-row.dataset.country=m.code
+let row = document.createElement("tr")
+row.dataset.country = m.code
+row.dataset.countryName = m.country.toLowerCase()
+row.dataset.movieName = m.movie.toLowerCase()
 
-row.innerHTML=`
+row.innerHTML = `
 
 <td data-label="Country">
 <div class="countryCell">
@@ -74,26 +95,29 @@ ${poster}
 tbody.appendChild(row)
 
 if(m.watched){
-watchedCountries[m.code]=m.movie
+watchedCountries[m.code] = m.movie
 }
 
 })
 
+
+/* ---------- MAP ---------- */
+
 let map = new jsVectorMap({
 
-selector:"#map",
-map:"world",
+selector: "#map",
+map: "world",
 
-zoomButtons:false,
-zoomOnScroll:false,
+zoomButtons: false,
+zoomOnScroll: false,
 
 regionStyle:{
-initial:{fill:"#d3d3d3"}
+initial:{ fill:"#d3d3d3" }
 },
 
 series:{
 regions:[{
-values:watchedCountries,
+values: watchedCountries,
 attribute:"fill",
 scale:{
 "default":"#4CAF50"
@@ -101,7 +125,7 @@ scale:{
 }]
 },
 
-onRegionTooltipShow:function(e,tooltip,code){
+onRegionTooltipShow:function(e, tooltip, code){
 
 if(watchedCountries[code]){
 tooltip.text(tooltip.text()+" 🎬 "+watchedCountries[code])
@@ -109,13 +133,13 @@ tooltip.text(tooltip.text()+" 🎬 "+watchedCountries[code])
 
 },
 
-onRegionClick:function(event,code){
+onRegionClick:function(event, code){
 
-getRows().forEach(row=>{
-row.style.display = row.dataset.country===code ? "" : "none"
+getRows().forEach(row => {
+row.style.display = row.dataset.country === code ? "" : "none"
 })
 
-document.querySelector("table").scrollIntoView({
+document.querySelector(".movieTable").scrollIntoView({
 behavior:"smooth"
 })
 
@@ -123,75 +147,97 @@ behavior:"smooth"
 
 })
 
+
+/* ---------- PROGRESS ---------- */
+
 let total = movies.length
-let watched = movies.filter(m=>m.watched).length
+let watched = movies.filter(m => m.watched).length
 
 document.getElementById("progress").innerText =
-"🎬 Movies watched: "+watched+" / "+total
+"🎬 Movies watched: " + watched + " / " + total
 
 document.getElementById("progressFill").style.width =
-(watched/total*100)+"%"
+(watched / total * 100) + "%"
 
-let topMovies=[...movies]
-.filter(m=>m.watched)
-.sort((a,b)=>b.rating-a.rating)
+
+/* ---------- TOP MOVIES ---------- */
+
+let topMovies = [...movies]
+.filter(m => m.watched)
+.sort((a,b) => b.rating - a.rating)
 .slice(0,5)
 
-topMovies.forEach(m=>{
+topMovies.forEach(m => {
 
-let li=document.createElement("li")
-li.innerText=`${m.movie} (${m.rating}⭐)`
+let li = document.createElement("li")
+li.innerText = `${m.movie} (${m.rating}⭐)`
+
 document.getElementById("topMovies").appendChild(li)
 
 })
 
-let searchInput=document.getElementById("searchInput")
 
-searchInput.addEventListener("keyup",function(){
+/* ---------- SEARCH ---------- */
 
-let value=this.value.toLowerCase()
+let searchInput = document.getElementById("searchInput")
 
-getRows().forEach(row=>{
+searchInput.addEventListener("keyup", function(){
 
-let country=row.cells[0].innerText.toLowerCase()
-let movie=row.cells[1].innerText.toLowerCase()
+let value = this.value.toLowerCase()
+
+getRows().forEach(row => {
+
+let country = row.dataset.countryName
+let movie = row.dataset.movieName
 
 row.style.display =
-(country.includes(value)||movie.includes(value)) ? "" : "none"
+(country.includes(value) || movie.includes(value)) ? "" : "none"
 
 })
 
 })
 
-document.getElementById("sortSelect").addEventListener("change",function(){
 
-let rowsArray=getRows()
+/* ---------- SORT ---------- */
 
-if(this.value==="country"){
-rowsArray.sort((a,b)=>
-a.cells[0].innerText.localeCompare(b.cells[0].innerText))
+document.getElementById("sortSelect").addEventListener("change", function(){
+
+let rowsArray = getRows()
+
+if(this.value === "country"){
+
+rowsArray.sort((a,b) =>
+a.dataset.countryName.localeCompare(b.dataset.countryName)
+)
+
 }
 
-if(this.value==="rating"){
-rowsArray.sort((a,b)=>{
+if(this.value === "rating"){
 
-let r1=(a.cells[2].innerText.match(/★/g)||[]).length
-let r2=(b.cells[2].innerText.match(/★/g)||[]).length
+rowsArray.sort((a,b) => {
 
-return r2-r1
+let r1 = (a.cells[2].innerText.match(/★/g) || []).length
+let r2 = (b.cells[2].innerText.match(/★/g) || []).length
+
+return r2 - r1
+
 })
+
 }
 
-rowsArray.forEach(row=>tbody.appendChild(row))
+rowsArray.forEach(row => tbody.appendChild(row))
 
 })
 
-document.getElementById("resetBtn").onclick=function(){
 
-searchInput.value=""
+/* ---------- RESET ---------- */
 
-getRows().forEach(row=>{
-row.style.display=""
+document.getElementById("resetBtn").onclick = function(){
+
+searchInput.value = ""
+
+getRows().forEach(row => {
+row.style.display = ""
 })
 
 }
