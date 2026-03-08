@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <title>Movies Around the World</title>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.css">
 <link rel="stylesheet" href="css/styles.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.css">
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/js/jsvectormap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
 
 </head>
 
@@ -34,23 +37,23 @@
 </div>
 
 </div>
-
 </div>
-
 
 <div class="card">
 
 <div class="controls">
 <input type="text" id="searchInput" placeholder="🔎 Search movie or country">
+
 <select id="sortSelect">
 <option value="default">Sort</option>
 <option value="country">Country A-Z</option>
 <option value="rating">Rating High-Low</option>
 </select>
+
 <button id="resetBtn">Reset</button>
 </div>
 
-  <div style="overflow-x:auto;">
+<div style="overflow-x:auto;">
 <table>
 
 <thead>
@@ -65,25 +68,37 @@
 </tr>
 </thead>
 
-
-
 <tbody id="movieBody"></tbody>
 
 </table>
-    </div>
+</div>
 
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/js/jsvectormap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
-
+<script src="countries.js"></script>
 <script src="movies.js"></script>
 
 <script>
-let watchedCountries={}
-let ratingCounts={1:0,2:0,3:0,4:0,5:0}
 
+const movies = countries.map(c => {
+
+let existing = movieData.find(m => m.code === c.code)
+
+return existing || {
+country:c.name,
+code:c.code,
+movie:"",
+link:"",
+stream:"",
+poster:"",
+rating:0,
+review:"",
+watched:false
+}
+
+})
+
+let watchedCountries={}
 let tbody=document.getElementById("movieBody")
 
 movies.forEach(m=>{
@@ -92,31 +107,33 @@ let stars = m.watched
 ? "★".repeat(m.rating) + "☆".repeat(5-m.rating)
 : "-"
 
-let watchIcon = m.watched
-? "✅"
-: "❌"
+let watchIcon = m.watched ? "✅" : "❌"
 
 let streamLink = m.stream
 ? `<a href="${m.stream}" target="_blank">▶ Watch</a>`
 : "-"
 
+let poster = m.poster
+? `<img class="poster" src="${m.poster}">`
+: "-"
+
+let movieTitle = m.movie
+? `<a href="${m.link}" target="_blank">${m.movie}</a>`
+: "—"
+
 let row=document.createElement("tr")
 row.dataset.country=m.code
 
-row.innerHTML = `
+row.innerHTML=`
 
 <td class="countryCell">
 <img class="flag" src="https://flagcdn.com/w40/${m.code.toLowerCase()}.png">
 <span>${m.country}</span>
 </td>
 
-<td>
-<img class="poster" src="${m.poster}">
-</td>
+<td>${poster}</td>
 
-<td>
-<a href="${m.link}" target="_blank">${m.movie}</a>
-</td>
+<td>${movieTitle}</td>
 
 <td class="stars">${stars}</td>
 
@@ -125,15 +142,12 @@ row.innerHTML = `
 <td>${streamLink}</td>
 
 <td class="watched">${watchIcon}</td>
-
 `
-
 
 tbody.appendChild(row)
 
 if(m.watched){
 watchedCountries[m.code]=m.movie
-ratingCounts[m.rating]++
 }
 
 })
@@ -177,7 +191,8 @@ onRegionClick:function(event,code){
 rows.forEach(row=>{
 row.style.display = row.dataset.country===code ? "" : "none"
 })
-  document.querySelector("table").scrollIntoView({
+
+document.querySelector("table").scrollIntoView({
 behavior:"smooth"
 })
 
@@ -185,21 +200,21 @@ behavior:"smooth"
 
 })
 
-/* PROGRESS BAR */
+/* PROGRESS */
 
 let total = movies.length
 let watched = movies.filter(m=>m.watched).length
 
-
-document.getElementById("progress").innerText=
+document.getElementById("progress").innerText =
 "🎬 Movies watched: "+watched+" / "+total
 
-document.getElementById("progressFill").style.width=
+document.getElementById("progressFill").style.width =
 (watched/total*100)+"%"
 
 /* TOP RATED */
 
 let topMovies=[...movies]
+.filter(m=>m.watched)
 .sort((a,b)=>b.rating-a.rating)
 .slice(0,5)
 
@@ -222,9 +237,9 @@ let value=this.value.toLowerCase()
 rows.forEach(row=>{
 
 let country=row.cells[0].innerText.toLowerCase()
-let movie=row.cells[3].innerText.toLowerCase()
+let movie=row.cells[2].innerText.toLowerCase()
 
-row.style.display=
+row.style.display =
 (country.includes(value)||movie.includes(value)) ? "" : "none"
 
 })
@@ -238,23 +253,18 @@ document.getElementById("sortSelect").addEventListener("change",function(){
 let rowsArray=[...rows]
 
 if(this.value==="country"){
-
 rowsArray.sort((a,b)=>
 a.cells[0].innerText.localeCompare(b.cells[0].innerText))
-
 }
 
 if(this.value==="rating"){
-
 rowsArray.sort((a,b)=>{
 
-let r1=(a.cells[4].innerText.match(/★/g)||[]).length
-let r2=(b.cells[4].innerText.match(/★/g)||[]).length
+let r1=(a.cells[3].innerText.match(/★/g)||[]).length
+let r2=(b.cells[3].innerText.match(/★/g)||[]).length
 
 return r2-r1
-
 })
-
 }
 
 rowsArray.forEach(row=>tbody.appendChild(row))
