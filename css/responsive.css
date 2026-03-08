@@ -58,6 +58,7 @@ height:40px;
 width:20px;
 }
 
+
 /* TABLE → MOBILE CARDS */
 
 .movieTable thead{
@@ -66,8 +67,7 @@ display:none;
 
 .movieTable,
 .movieTable tbody,
-.movieTable tr,
-.movieTable td{
+.movieTable tr{
 display:block;
 width:100%;
 }
@@ -76,41 +76,62 @@ width:100%;
 background:white;
 border-radius:10px;
 box-shadow:0 4px 12px rgba(0,0,0,0.08);
-padding:12px;
-margin-bottom:12px;
+padding:14px;
+margin-bottom:14px;
 }
+
+/* card rows */
 
 .movieTable td{
 display:flex;
-justify-content:space-between;
-align-items:center;
-text-align:right;
-padding:6px 0;
+align-items:flex-start;
+gap:10px;
+padding:8px 0;
 border-bottom:1px solid #eee;
+flex-wrap:wrap;
 }
 
 .movieTable td:last-child{
 border-bottom:none;
 }
 
+/* label */
+
 .movieTable td::before{
 content:attr(data-label);
 font-weight:600;
 color:#555;
-text-align:left;
+min-width:90px;
+flex-shrink:0;
 }
 
-.reviewCol{
-max-width:65%;
-text-align:right;
+/* value content */
+
+.movieTable td > *{
+flex:1;
+min-width:0;
 }
+
+/* allow wrapping */
+
+.movieTable td span,
+.movieTable td div,
+.movieTable td a{
+word-break:break-word;
+}
+
+/* layout adjustments */
 
 .movieCell{
-justify-content:flex-end;
+justify-content:flex-start;
 }
 
 .countryCell{
-justify-content:flex-end;
+justify-content:flex-start;
+}
+
+.reviewCol{
+max-width:100%;
 }
 
 }
