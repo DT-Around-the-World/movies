@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Movies Around the World</title>
 
-<script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.css">
 <link rel="stylesheet" href="css/styles.css">
 
@@ -178,6 +177,9 @@ onRegionClick:function(event,code){
 rows.forEach(row=>{
 row.style.display = row.dataset.country===code ? "" : "none"
 })
+  document.querySelector("table").scrollIntoView({
+behavior:"smooth"
+})
 
 }
 
@@ -185,7 +187,7 @@ row.style.display = row.dataset.country===code ? "" : "none"
 
 /* PROGRESS BAR */
 
-let total=195
+let total = movies.length
 let watched = movies.filter(m=>m.watched).length
 
 
