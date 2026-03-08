@@ -129,9 +129,10 @@ border-collapse:collapse;
 table-layout:auto;
 }
 
-th,td{
+th, td{
 padding:10px;
 vertical-align:middle;
+text-align:center;
 }
 
 thead{
