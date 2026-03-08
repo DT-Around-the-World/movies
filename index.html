@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <title>Movies Around the World</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="css/styles.css">
 
@@ -14,24 +17,29 @@
 
 <body>
 
-<h1>Movies Around the World</h1>
+<div class="appContainer">
+
+<header class="headerBar">
+<h1>🌍 Movies Around the World</h1>
+</header>
 
 <div class="topLayout">
 
-<div class="card">
+<div class="card mapCard">
 <div id="map"></div>
 </div>
 
 <div class="sidePanel">
 
-<div class="card">
+<div class="card progressCard">
 <div id="progress"></div>
+
 <div class="progressBar">
 <div class="progressFill" id="progressFill"></div>
 </div>
 </div>
 
-<div class="card">
+<div class="card topCard">
 <h2 class="sectionTitle">🏆 Top Rated Movies</h2>
 <ul id="topMovies" class="topMovies"></ul>
 </div>
@@ -39,10 +47,15 @@
 </div>
 </div>
 
-<div class="card">
+<div class="card tableCard">
 
 <div class="controls">
-<input type="text" id="searchInput" placeholder="🔎 Search movie or country">
+
+<input
+type="text"
+id="searchInput"
+placeholder="🔎 Search movie or country"
+>
 
 <select id="sortSelect">
 <option value="default">Sort</option>
@@ -51,25 +64,30 @@
 </select>
 
 <button id="resetBtn">Reset</button>
+
 </div>
 
-<div style="overflow-x:auto;">
-<table>
+<div class="tableWrapper">
+
+<table class="movieTable">
 
 <thead>
 <tr>
-<th>Country</th>
-<th>Movie</th>
-<th>Rating</th>
-<th>Review</th>
-<th>Stream</th>
-<th>Watched</th>
+<th class="countryCol">Country</th>
+<th class="movieCol">Movie</th>
+<th class="ratingCol">Rating</th>
+<th class="reviewCol">Review</th>
+<th class="streamCol">Stream</th>
+<th class="watchedCol">Watched</th>
 </tr>
 </thead>
 
 <tbody id="movieBody"></tbody>
 
 </table>
+
+</div>
+
 </div>
 
 </div>
