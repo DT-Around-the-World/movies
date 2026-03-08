@@ -1,4 +1,4 @@
-const movies = [
+const movieData = [
 
 {
 country:"Afghanistan",
