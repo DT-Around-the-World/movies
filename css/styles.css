@@ -40,6 +40,7 @@ display:flex;
 align-items:center;
 gap:10px;
 white-space:nowrap;
+justify-content:center;
 }
 
 .movieCell .poster{
@@ -150,18 +151,25 @@ background:#f8fafc;
 }
 
 
-.poster{
-width:55px;
-border-radius:6px;
-}
-
 .flag{
 width:28px;
 border-radius:3px;
+flex-shrink:0;
+}
+
+.poster{
+width:55px;
+border-radius:6px;
+flex-shrink:0;
 }
 
 .stars{
 color:#fbbf24;
+}
+
+.countryCell span,
+.movieCell span{
+white-space:nowrap;
 }
 
   /* TABLET */
