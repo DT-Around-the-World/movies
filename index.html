@@ -127,7 +127,7 @@ let stars = m.watched
 let watchIcon = m.watched ? "✅" : "❌"
 
 let streamLink = m.stream
-? `<a href="${m.stream}" target="_blank">▶ Watch</a>`
+? `<a class="streamLink" href="${m.stream}" target="_blank">${m.streamName || "Watch"}</a>`
 : "-"
 
 let poster = m.poster
