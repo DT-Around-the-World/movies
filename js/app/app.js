@@ -16,11 +16,8 @@ watched:false
 
 })
 
-let watchedCountries = {}
-let tbody = document.getElementById("movieBody")
-let rows
-
-function buildTable(){
+let watchedCountries={}
+let tbody=document.getElementById("movieBody")
 
 movies.forEach(m=>{
 
@@ -42,10 +39,10 @@ let movieTitle = m.movie
 ? `<a href="${m.link}" target="_blank">${m.movie}</a>`
 : "—"
 
-let row = document.createElement("tr")
-row.dataset.country = m.code
+let row=document.createElement("tr")
+row.dataset.country=m.code
 
-row.innerHTML = `
+row.innerHTML=`
 
 <td>
 <div class="countryCell">
@@ -62,26 +59,25 @@ ${poster}
 </td>
 
 <td class="stars">${stars}</td>
+
 <td>${m.watched ? m.review : "-"}</td>
+
 <td>${streamLink}</td>
+
 <td class="watched">${watchIcon}</td>
 `
 
 tbody.appendChild(row)
 
 if(m.watched){
-watchedCountries[m.code] = m.movie
+watchedCountries[m.code]=m.movie
 }
 
 })
 
-rows = tbody.querySelectorAll("tr")
+let rows = tbody.querySelectorAll("tr")
 
-}
-
-function initMap(){
-
-new jsVectorMap({
+let map = new jsVectorMap({
 
 selector:"#map",
 map:"world",
@@ -125,10 +121,6 @@ behavior:"smooth"
 
 })
 
-}
-
-function updateProgress(){
-
 let total = movies.length
 let watched = movies.filter(m=>m.watched).length
 
@@ -137,10 +129,6 @@ document.getElementById("progress").innerText =
 
 document.getElementById("progressFill").style.width =
 (watched/total*100)+"%"
-
-}
-
-function renderTopMovies(){
 
 let topMovies=[...movies]
 .filter(m=>m.watched)
@@ -154,10 +142,6 @@ li.innerText=`${m.movie} (${m.rating}⭐)`
 document.getElementById("topMovies").appendChild(li)
 
 })
-
-}
-
-function initSearch(){
 
 let searchInput=document.getElementById("searchInput")
 
@@ -177,10 +161,6 @@ row.style.display =
 
 })
 
-}
-
-function initSort(){
-
 document.getElementById("sortSelect").addEventListener("change",function(){
 
 let rowsArray=[...rows]
@@ -191,48 +171,25 @@ a.cells[0].innerText.localeCompare(b.cells[0].innerText))
 }
 
 if(this.value==="rating"){
-
 rowsArray.sort((a,b)=>{
 
 let r1=(a.cells[2].innerText.match(/★/g)||[]).length
 let r2=(b.cells[2].innerText.match(/★/g)||[]).length
 
 return r2-r1
-
 })
-
 }
 
 rowsArray.forEach(row=>tbody.appendChild(row))
 
 })
 
-}
-
-function initReset(){
-
 document.getElementById("resetBtn").onclick=function(){
 
-document.getElementById("searchInput").value=""
+searchInput.value=""
 
 rows.forEach(row=>{
 row.style.display=""
 })
 
 }
-
-}
-
-function initApp(){
-
-buildTable()
-initMap()
-updateProgress()
-renderTopMovies()
-initSearch()
-initSort()
-initReset()
-
-}
-
-initApp()
