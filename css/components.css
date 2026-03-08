@@ -1,0 +1,95 @@
+#map{
+height:420px;
+width:100%;
+}
+
+.progressBar{
+height:12px;
+background:#e6e8ee;
+border-radius:8px;
+margin-top:10px;
+overflow:hidden;
+}
+
+.progressFill{
+height:100%;
+background:#4CAF50;
+width:0;
+transition:width .5s ease;
+}
+
+.sectionTitle{
+margin-top:0;
+font-size:18px;
+}
+
+.topMovies{
+list-style:none;
+padding:0;
+margin:0;
+}
+
+.topMovies li{
+padding:6px 0;
+border-bottom:1px solid #eee;
+}
+
+.controls{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+flex-wrap:wrap;
+}
+
+.controls input,
+.controls select,
+.controls button{
+padding:8px 10px;
+border-radius:8px;
+border:1px solid #dcdfe6;
+font-size:14px;
+}
+
+.controls button{
+background:#4CAF50;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+.controls button:hover{
+opacity:.9;
+}
+
+.poster{
+height:55px;
+border-radius:4px;
+cursor:pointer;
+transition:transform .2s ease, box-shadow .2s ease;
+position:relative;
+z-index:1;
+}
+
+.poster:hover{
+transform:scale(2);
+z-index:999;
+box-shadow:0 10px 25px rgba(0,0,0,0.25);
+}
+
+.streamLink{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+background:#eef2ff;
+color:#374151;
+font-size:13px;
+text-decoration:none;
+font-weight:500;
+transition:all .2s ease;
+}
+
+.streamLink:hover{
+background:#4CAF50;
+color:white;
+transform:translateY(-1px);
+}
