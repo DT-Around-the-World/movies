@@ -149,11 +149,12 @@ text-align:center;
 vertical-align:middle;
 }
 
-/* FIXED STICKY HEADER */
+/* TABLE HEADER */
 
-.movieTable thead th{
+.movieTable thead tr{
 background:#f2f4f8;
 }
+
 .movieTable thead{
 border-bottom:2px solid #e5e7eb;
 }
@@ -162,13 +163,10 @@ border-bottom:2px solid #e5e7eb;
 
 .movieTable tbody tr{
 border-bottom:1px solid #eee;
-transition:background .2s ease, transform .15s ease;
+transition:background .2s ease;
 }
 
-.movieTable tbody tr:hover{
-background:#f7f9fc;
-transform:scale(1.01);
-}
+.movieTable tbody tr:hover
 
 /* COUNTRY CELL */
 
@@ -245,7 +243,7 @@ transform:translateY(-1px);
 
 /* TABLE COLUMN SIZING */
 
-.countryCol{width:180px;}
+.countryCol{width:200px;}
 .movieCol{width:260px;}
 .ratingCol{width:120px;}
 .streamCol{width:120px;}
