@@ -143,14 +143,7 @@ text-align:center;
 vertical-align:middle;
 }
 
-/* STICKY TABLE HEADER */
 
-.movieTable thead th{
-position:sticky;
-top:72px;
-background:#f2f4f8;
-z-index:500;
-}
 
 /* TABLE ROWS */
 
