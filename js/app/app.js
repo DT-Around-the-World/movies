@@ -19,6 +19,10 @@ watched:false
 let watchedCountries={}
 let tbody=document.getElementById("movieBody")
 
+function getRows(){
+return [...tbody.querySelectorAll("tr")]
+}
+
 movies.forEach(m=>{
 
 let stars = m.watched
@@ -28,7 +32,7 @@ let stars = m.watched
 let watchIcon = m.watched ? "✅" : "❌"
 
 let streamLink = m.stream
-? `<a class="streamLink" href="${m.stream}" target="_blank">${m.streamName || "Watch"}</a>`
+? `<a class="streamLink" href="${m.stream}" target="_blank" rel="noopener">${m.streamName || "Watch"}</a>`
 : "-"
 
 let poster = m.poster
@@ -36,7 +40,7 @@ let poster = m.poster
 : "-"
 
 let movieTitle = m.movie
-? `<a href="${m.link}" target="_blank">${m.movie}</a>`
+? `<a href="${m.link}" target="_blank" rel="noopener">${m.movie}</a>`
 : "—"
 
 let row=document.createElement("tr")
@@ -60,7 +64,7 @@ ${poster}
 
 <td class="stars">${stars}</td>
 
-<td>${m.watched ? m.review : "-"}</td>
+<td class="reviewCol">${m.watched ? m.review : "-"}</td>
 
 <td>${streamLink}</td>
 
@@ -74,8 +78,6 @@ watchedCountries[m.code]=m.movie
 }
 
 })
-
-let rows = tbody.querySelectorAll("tr")
 
 let map = new jsVectorMap({
 
@@ -109,7 +111,7 @@ tooltip.text(tooltip.text()+" 🎬 "+watchedCountries[code])
 
 onRegionClick:function(event,code){
 
-rows.forEach(row=>{
+getRows().forEach(row=>{
 row.style.display = row.dataset.country===code ? "" : "none"
 })
 
@@ -149,7 +151,7 @@ searchInput.addEventListener("keyup",function(){
 
 let value=this.value.toLowerCase()
 
-rows.forEach(row=>{
+getRows().forEach(row=>{
 
 let country=row.cells[0].innerText.toLowerCase()
 let movie=row.cells[1].innerText.toLowerCase()
@@ -163,7 +165,7 @@ row.style.display =
 
 document.getElementById("sortSelect").addEventListener("change",function(){
 
-let rowsArray=[...rows]
+let rowsArray=getRows()
 
 if(this.value==="country"){
 rowsArray.sort((a,b)=>
@@ -188,7 +190,7 @@ document.getElementById("resetBtn").onclick=function(){
 
 searchInput.value=""
 
-rows.forEach(row=>{
+getRows().forEach(row=>{
 row.style.display=""
 })
 
