@@ -74,3 +74,66 @@ align-items:flex-start;
 }
 
 }
+
+/* TABLE → MOBILE CARDS */
+
+@media (max-width:700px){
+
+.movieTable thead{
+display:none;
+}
+
+.movieTable,
+.movieTable tbody,
+.movieTable tr,
+.movieTable td{
+display:block;
+width:100%;
+}
+
+.movieTable tr{
+background:white;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+padding:12px;
+margin-bottom:12px;
+}
+
+.movieTable td{
+display:flex;
+justify-content:space-between;
+align-items:center;
+text-align:right;
+padding:6px 0;
+border-bottom:1px solid #eee;
+}
+
+.movieTable td:last-child{
+border-bottom:none;
+}
+
+.movieTable td::before{
+content:attr(data-label);
+font-weight:600;
+color:#555;
+text-align:left;
+}
+
+.reviewCol{
+text-align:right;
+max-width:65%;
+}
+
+.movieCell{
+justify-content:flex-end;
+}
+
+.countryCell{
+justify-content:flex-end;
+}
+
+.poster{
+height:40px;
+}
+
+}
