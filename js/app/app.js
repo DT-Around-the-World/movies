@@ -134,11 +134,11 @@ initial:{ fill:"#d3d3d3" }
 
 series:{
 regions:[{
-values: watchedCountries,
-attribute:"fill",
-scale:{
-"default":"#4CAF50"
-}
+values:Object.fromEntries(
+Object.keys(watchedCountries).map(c => [c,1])
+),
+scale:[ "#d3d3d3", "#4CAF50" ],
+normalizeFunction:"linear"
 }]
 },
 
