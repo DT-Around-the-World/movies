@@ -104,7 +104,7 @@ ${poster}
 tbody.appendChild(row)
 
 if(m.watched){
-watchedCountries[m.code] = m.movie
+watchedCountries[m.code] = m.rating
 }
 
 })
@@ -128,11 +128,15 @@ initial:{ fill:"#d3d3d3" }
 
 series:{
 regions:[{
-values:Object.fromEntries(
-Object.keys(watchedCountries).map(c => [c,1])
-),
-scale:[ "#d3d3d3", "#4CAF50" ],
-normalizeFunction:"linear"
+values: watchedCountries,
+scale:{
+1:"#e53935",   // red
+2:"#fb8c00",   // orange
+3:"#fbc02d",   // yellow
+4:"#7cb342",   // light green
+5:"#2e7d32"    // green
+},
+attribute:"fill"
 }]
 },
 
