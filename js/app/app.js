@@ -42,17 +42,10 @@ function getStars(rating, watched){
 
 if(!watched) return "-"
 
-let colorClass = "stars0"
-
-if(rating === 1) colorClass = "stars1"
-if(rating === 2) colorClass = "stars2"
-if(rating === 3) colorClass = "stars3"
-if(rating === 4) colorClass = "stars4"
-if(rating === 5) colorClass = "stars5"
-
 let stars = "★".repeat(rating) + "☆".repeat(5-rating)
 
-return `<span class="${colorClass}">${stars}</span>`
+return `<span class="stars${rating}">${stars}</span>`
+
 }
 
 /* ---------- BUILD TABLE ---------- */
@@ -60,6 +53,7 @@ return `<span class="${colorClass}">${stars}</span>`
 movies.forEach(m => {
 
 let stars = getStars(m.rating, m.watched)
+
 
 let watchIcon = m.watched ? "✅" : "❌"
 
