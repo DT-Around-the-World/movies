@@ -44,6 +44,22 @@ align-items:stretch;
 width:100%;
 }
 
+  .controls input,
+.controls select{
+padding:10px 12px;
+border-radius:10px;
+border:1px solid #dfe3ea;
+background:#fafbff;
+}
+
+.controls input:focus,
+.controls select:focus{
+outline:none;
+border-color:#4CAF50;
+background:white;
+box-shadow:0 0 0 2px rgba(76,175,80,0.15);
+}
+
 /* smaller elements */
 
 .movieTable{
