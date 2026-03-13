@@ -104,3 +104,9 @@ background:#4CAF50;
 color:white;
 transform:translateY(-1px);
 }
+
+.stars1{color:#e53935;}   /* red */
+.stars2{color:#fb8c00;}   /* orange */
+.stars3{color:#fbc02d;}   /* yellow */
+.stars4{color:#7cb342;}   /* light green */
+.stars5{color:#2e7d32;}   /* green */
