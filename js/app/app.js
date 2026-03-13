@@ -157,7 +157,8 @@ activeCountry = activeCountry === code ? null : code
 getRows().forEach(row => {
 
 row.style.display =
-!activeCountry || row.dataset.country === activeCountry
+(country.includes(value) || movie.includes(value)) &&
+(!activeCountry || row.dataset.country === activeCountry)
 ? ""
 : "none"
 
