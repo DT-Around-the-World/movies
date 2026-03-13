@@ -39,10 +39,21 @@ return [...tbody.querySelectorAll("tr")]
 /* ---------- HELPER FUNCTIONS ---------- */
 
 function getStars(rating, watched){
-if(!watched) return "-"
-return "★".repeat(rating) + "☆".repeat(5-rating)
-}
 
+if(!watched) return "-"
+
+let colorClass = "stars0"
+
+if(rating === 1) colorClass = "stars1"
+if(rating === 2) colorClass = "stars2"
+if(rating === 3) colorClass = "stars3"
+if(rating === 4) colorClass = "stars4"
+if(rating === 5) colorClass = "stars5"
+
+let stars = "★".repeat(rating) + "☆".repeat(5-rating)
+
+return `<span class="${colorClass}">${stars}</span>`
+}
 
 /* ---------- BUILD TABLE ---------- */
 
