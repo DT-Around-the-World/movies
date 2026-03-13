@@ -92,12 +92,11 @@ box-shadow:0 10px 25px rgba(0,0,0,0.25);
 
 .streamLink{
 display:inline-block;
-padding:6px 12px;
-border-radius:20px;
+padding:7px 14px;
+border-radius:999px;
 background:#eef2ff;
-color:#374151;
+font-weight:600;
 font-size:13px;
-font-weight:500;
 transition:all .2s ease;
 }
 
@@ -105,6 +104,7 @@ transition:all .2s ease;
 background:#4CAF50;
 color:white;
 transform:translateY(-1px);
+box-shadow:0 3px 10px rgba(0,0,0,0.12);
 }
 
 .stars1{color:#e53935;}   /* red */
