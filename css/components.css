@@ -51,13 +51,29 @@ padding-bottom:10px;
 border-bottom:1px solid #eee;
 }
 
-.controls input,
-.controls select,
+
 .controls button{
 padding:8px 10px;
 border-radius:8px;
 border:1px solid #dcdfe6;
 font-size:14px;
+}
+
+.controls input,
+.controls select{
+padding:10px 12px;
+border-radius:10px;
+border:1px solid #dfe3ea;
+background:#fafbff;
+  font-size:14px;
+}
+
+.controls input:focus,
+.controls select:focus{
+outline:none;
+border-color:#4CAF50;
+background:white;
+box-shadow:0 0 0 2px rgba(76,175,80,0.15);
 }
 
 .controls button{
